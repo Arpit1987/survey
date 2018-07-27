@@ -1,0 +1,31 @@
+<div class="wrapper">
+
+        <nav id="sidebar">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <h3>Collapsible Sidebar</h3>
+            </div>
+			
+			<div id="content">
+				<button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+					<i class="glyphicon glyphicon-align-left"></i>
+					Toggle Sidebar
+				</button>
+			</div>
+
+            <!-- Sidebar Links -->
+            <ul class="list-unstyled components">
+                <li class="active"><a href="#">DashBoard</a></li>
+                <li><!-- Link with dropdown items -->
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Organizations</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li><a href="#">Create</a></li>
+                        <li><a href="#">Access</a></li>
+                        <li><a href="#">Mandatory Tags</a></li>
+                    </ul>
+                <li><a href="#">Feedback</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+
+</div>

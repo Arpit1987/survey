@@ -1,0 +1,136 @@
+<!-- Static navbar -->
+
+ <!--     <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="font:cursive font-weight: bold; color: rgb(85, 150, 230); cursor: pointer;" href="#">CHECK<font face="Apple Chancery" color="green">LIST</font></a>
+          </div> <!--nav bar header -->
+<!--<div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="/mydashboard">Dashboard</a></li>
+              
+			    <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Checklist <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+				  <li><a href="checklist/view">All Checklists</a></li>
+				  <li><a href="checklist/create">New Checklist</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Checklist Template <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+				  <li><a href="template/view">Checklist Templates</a></li>
+                  <li><a href="/template/create">New Checklist Template</a></li>
+            
+				
+				  
+                </ul>
+              </li>
+			  <li><a href="/report">Report</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+			  <li><a href="/administration/view">Administration</a></li>		
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><form>
+						<div class="form-group">
+							<label for="exampleInputEmail1">Email address</label>
+							<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter cuid">
+							<input type="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter password">
+						</div>
+					   </form>
+				</li>
+
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+
+ <!--       </div><!--/.container-fluid -->
+   <!--   </nav>
+
+<div class="page-title">
+
+	<router-outlet></router-outlet>
+</div>
+
+-->
+<header class="header" role="banner">
+
+  <div class="header-wrapper">
+
+    <div class="header-bar">
+      <a class="logo" href="/">
+	     <img class="la-splash" src="assets/images/la-splash.png" width="40px;" height="83px;" >
+	  </a>
+      <a class="logo" href="/">
+        <span class="la-wordmark">IBM <strong>Survey</strong> Manager</span>
+      </a>
+
+    </div>
+    <!--Testing New Nav Bar - Starts-->
+    <div id="TopNav">
+  <nav>
+    <ul>
+      <li><a href="/mydashboard">My Dashboard</a></li>
+      <li><a href="/report">Reports</a></li>
+    <li><a href="/administration/view">Administration</a></li>
+	  <!---Added for login -->
+	 	<!--			<li class="dropdown">
+				
+				<!--	<a class="dropdown-toggle" data-toggle="dropdown" role="button"
+					aria-haspopup="true" aria-expanded="false">My account <span class="caret"></span></a>-->
+					
+				<!--	<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{user.firstName}}<span class="caret"></span></a> -->
+		<!--			<a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account <span class="caret"></span></a>
+						
+						<ul class="dropdown-menu" >
+							<li><a routerLink="/administration">Administration</a></li>
+							<li><a routerLink="/user/my-account">Account</a></li>
+							
+							<li *ngIf="loggedIn"><a (click)="logout()">Logout<small>{{user.firstName}}</small></a></li>
+							<li *ngIf="loggedIn"><a routerLink="/create-app">Create Application</a></li> -->
+			<!--				<li *ngIf="loggedIn"><a routerLink="/user/my-account">My Profile</a></li> -->
+				   
+				   
+					<!--		<li *ngIf="!loggedIn"><a routerLink="/user/login">Login</a></li>
+							<li *ngIf="!loggedIn"><a routerLink="/user/register">Register</a></li> -->
+				 
+				  
+			<!--			</ul>
+				
+				</li>--->
+			     <li *ngIf="authService.loggedIn()" (click)="logout()">Logout</li>
+				<li *ngIf="!authService.loggedIn()" routerLink="/login">Login</li>
+				
+				
+		<!--added for login-->
+    </ul>
+  </nav>
+</div>
+<!--Testing New Nav Bar - Ends-->
+  </div>
+
+</header>
+<!--Don't alter the code below-->
+
+<div class="checklist-main">
+
+  <!--<div class="grid-container">-->
+  <flash-messages></flash-messages>
+	<router-outlet></router-outlet>
+	
+		
+<!--</div>-->
+<footer>
+IBM Copyright &#64; 2017
+</footer>
+	

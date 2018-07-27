@@ -1,0 +1,60 @@
+<div class="topic-title">
+    <svg class="bg-topic-title" xmlns="http://www.w3.org/2000/svg" width="380px" height="100px" viewBox="0 0 380 100">
+      <polygon points="0,0 0,70 200,70 380,0 "/>
+    </svg>
+    <div class="title-name">
+        <h1>Add Key-Value</h1>
+    </div>
+  </div>
+  
+<ol class="breadcrumb">
+		<li><a routerLink="/" routerLinkActive="active">Home</a></li>
+		<li><a routerLink="/mydashboard" routerLinkActive="active">Dashboard</a></li>
+		<li><a routerLink="/administration/view" routerLinkActive="active">Administration</a></li>
+		<li class="active">Add Key-Value</li>
+	</ol>
+	
+<div class="grid-container">
+  <div class="row">
+    <div class="col-xs-12">
+      <form *ngIf="isDataAvailable" [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+        <div class="form-group">
+          <label>Key</label>
+          <input type="text" class="form-control" formControlName="key">
+          <small *ngIf="!myForm.controls.key.valid" class="text-danger">
+             {{keyValidationText}}
+            </small>
+        </div>
+        <!--values-->
+        <div formArrayName="values">
+          <div *ngFor="let value of myForm.controls.values.controls; let i=index" class="panel panel-default">
+            <div class="panel-heading">
+              <span>value {{i + 1}}</span>
+              <span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.values.controls.length > 1" (click)="removeValue(i)"></span>
+            </div>
+            <div class="panel-body" [formGroupName]="i">
+              <value [group]="myForm.controls.values.controls[i]"></value>
+            </div>
+          </div>
+        </div>
+
+        <div class="margin-20">
+          <a (click)="addValue()" style="cursor: default">
+            Add another value +
+          </a>
+        </div>
+
+        <div class="margin-20">
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="!myForm.valid">Submit</button>
+        </div>
+        <div class="clearfix"></div>
+
+   <!--     <div class="margin-20">
+          <div>myForm details:-</div>
+          <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
+          <pre>form value: <br>{{myForm.value | json}}</pre>
+        </div> -->
+      </form>
+    </div>
+  </div>
+</div>

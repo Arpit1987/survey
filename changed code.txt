@@ -1,0 +1,146 @@
+<!--
+	
+		<form #f="ngForm" (ngSubmit)="onSubmit(template.value)">
+		<div class="panel panel-primary">
+		<div class="panel-heading">Checklist Details</div>
+			<div class="panel-body">
+				<div class="row">
+					
+						<label for="checklistName">Checklist Name</label>
+						<input type="text" class="form-control" [(ngModel)]="template.templateName"  name="checklist_name"  #name="ngModel" placeholder="Enter Checklist Name">
+				</div>
+				<div class="row">
+						  
+							<label for="checklistDesc">Checklist Description</label>
+							<textarea class="form-control" [(ngModel)]="template.templateDesc" name="checklist_name"  #name="ngModel"  placeholder="Enter Checklist Description"></textarea>
+						
+					  </div>
+					  
+					 <label for="exampleSelect1">Select Template</label>
+						<select [(ngModel)]="template.templateID" (change)="templateChanged()" class="form-control" #name="ngModel"  id="exampleSelect1">
+							<option *ngFor="let t of templates;" >{{t.templateName}}</option>
+						</select>
+					<div class="form-group">
+						<label for="exampleTextarea">Template Owner(s)</label>
+						<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Template Owner">
+			
+					</div>
+			</div>
+	</div>
+<!--Mandatory tags section-->
+<!--					 <ul class="list-group" formArrayName="mTags">
+						  <div *ngFor="let mTag of templateForm.controls['mTags'].controls; let i = index">
+							<div class="city-box" formGroupName="{{i}}">
+							  <div class="fields">            
+								<div class="field eight wide">
+								  <label for="description" formControlName="key">Key Name "{{i}}"</label>
+								</div>
+							</div>
+						</div>
+						</div>
+					</ul>
+						
+<!-- End this section-->
+<!--				<div class="panel panel-primary">
+					<div class="panel-heading">Mandatory Tags</div>
+					<div class="panel-body">
+						<table class="table table-striped" [mfData]="malApplications">						
+							<thead>
+								<tr>
+									<th style="width: 40%" class="text-left">
+										<mfDefaultSorter by="id">Tags</mfDefaultSorter>
+									</th>
+									<th style="width: 40%" class="text-left">
+										<mfDefaultSorter by="id">Values</mfDefaultSorter>
+									</th>
+								</tr>
+							</thead>
+						<!--	<tbody> 
+								<div *ngFor="let mTag of template.controls[mTags].controls"; let i = index”>
+								   <div class=”city-box” formGroupName=”{{i}}”>
+									  <label for=”description”>Tag Name</label>
+									  <input type=”text”
+										  placeholder=”Caliornia, SF”
+										  formControlName=”key”>
+								   </div>
+								</div>
+								<div *ngFor="let value of mTag.controls[values].controls"; let j = index”>
+									<div class=”place-box” formGroupName=”{{j}}”>
+									   <label for=”description”>Place Name</label>
+									   <input type=”text”
+											  placeholder=”Caliornia, SF”
+											  formControlName=value>
+									</div>
+								</div>
+							</tbody>
+					<tbody>
+								<div *ngFor="let y of listOptions;">
+									
+										<tr>	
+												
+													<td class="text-left" >
+													 {{y.key}}
+													</td>
+													<td class="text-left" >
+													 
+														 <select formControlName="mTags" class="form-control" id="exampleSelect1">
+															 <option value="" selected disabled hidden>Select a Tag</option>
+															<option *ngFor="let v of y.values;" [value]="v._id">{{v.value}}</option>
+														 </select>
+													</td>
+												
+											
+											
+<!--				<tr formArrayName="mTags">
+									
+										<div [formGroupName]="m" *ngFor="let option of getMTags(template); let m=index">							
+<td class="text-left" >
+												<div class="row">
+													 <select class="form-control" id="Select1" formControlName="key">
+													 <option value="" selected disabled hidden>Select a Tag</option>
+														<option *ngFor="let k of templates;let z=index">{{k}}</option>
+													</select> 
+												 </div>
+											</td>
+
+											<td>
+												<span (click)="removeMTags(m)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>	
+											</td> 
+										</tr>		
+								</div>
+									
+								
+					
+							</tbody> -->
+							
+	<!--			<tbody>
+								<div *ngFor="let y of listOptions;">	
+									<tr style="width: 100%" >	
+											
+										<td style="width: 50%">
+											{{y.key}}
+										</td>
+										<td  style="width: 50%">
+											 <select #select multiple class="form-control" id="exampleSelect1">
+												<option value="" selected disabled hidden>Select a Tag</option>
+												<option *ngFor="let v of y.values;" [value]="v._id">{{v.value}}</option>
+											</select>
+										</td>
+										
+									</tr>	
+								</div>
+							</tbody>
+						</table>	
+						</div>
+					</div>
+					  
+
+	<!-- End mandatory tags section -->		
+<!--
+			<div class="row" align="Center">
+				<button type="submit" class="btn btn-primary  btn-lg">Create Checklist</button>
+			</div>
+		</form>
+		
+		<pre> {{template.value | json}} </pre>
+</div>

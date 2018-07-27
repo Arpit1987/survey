@@ -1,0 +1,74 @@
+<div class="topic-title">
+    <svg class="bg-topic-title" xmlns="http://www.w3.org/2000/svg" width="380px" height="100px" viewBox="0 0 380 100">
+      <polygon points="0,0 0,70 200,70 380,0 "/>
+    </svg>
+    <div class="title-name">
+        <h1>Administration</h1>
+    </div>
+  </div>
+  
+<ol class="breadcrumb">
+		<li><a routerLink="/" routerLinkActive="active">Home</a></li>
+		<li><a routerLink="/mydashboard" routerLinkActive="active">Dashboard</a></li>
+		<li class="active">Administration</li>
+
+	</ol>
+	
+<ol class="breadcrumb">
+		<li><a routerLink="/email/view" routerLinkActive="active">View Email Template</a></li>
+		<li><a routerLink="/email" routerLinkActive="active">Create Email Template</a></li>
+	</ol> 
+	
+<div class="grid-container">
+	<div class="form-group">
+						<h1 class="page-header" ><label for="exampleTextarea">Key Value Pairs</label></h1>
+						<p><button type="button" class="btn btn-primary" (click)="addForm()">Add</button></p>
+			<table class="table table-striped" [mfData]="malApplications">						
+					<thead>
+					
+					
+					<tr>
+						
+						<th style="width: 20%" class="text-left">
+							<mfDefaultSorter by="id">Key</mfDefaultSorter>
+						</th>
+						<th style="width: 70%" class="text-left">
+							<mfDefaultSorter by="email">Values</mfDefaultSorter>
+						</th>
+						<th style="width: 10%" class="text-left">
+							<mfDefaultSorter by="email"></mfDefaultSorter>
+						</th>
+						
+						
+					</tr>
+					
+
+					</thead>
+					<tbody>
+					<tr *ngFor="let keyValue of keyValues;let i=index">
+						<td class="text-left">{{keyValue.key}}</td>
+						<td class="text-left">
+							<div *ngFor="let values of keyValue.values">
+								{{values.value}}
+							</div>
+						</td>
+					
+						<td class="text-left">
+								<a routerLink="/administration/{{keyValue._id}}/edit"><span class="glyphicon glyphicon-edit" aria-hidden=true></span></a>
+								<a (click)="deleteKey(keyValue._id,i)"><span class="glyphicon glyphicon-trash" aria-hidden=true></span></a>
+						</td>
+					<tr >
+						
+					</tbody>
+					<tfoot>
+					<tr>
+						<td colspan="5">
+							<mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+						</td>
+					</tr>
+					</tfoot>
+				</table>
+				</div>	
+				
+				
+				</div>

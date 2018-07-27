@@ -1,0 +1,62 @@
+<div class="topic-title">
+    <svg class="bg-topic-title" xmlns="http://www.w3.org/2000/svg" width="380px" height="100px" viewBox="0 0 380 100">
+      <polygon points="0,0 0,70 200,70 380,0 "/>
+    </svg>
+    <div class="title-name">
+        <h1>Fill Checklist</h1>
+    </div>
+  </div>
+  
+<ol class="breadcrumb">
+		<li><a routerLink="/" routerLinkActive="active">Home</a></li>
+		<li><a routerLink="/mydashboard" routerLinkActive="active">Dashboard</a></li>
+		<li class="active">Fill Checklist</li>
+	</ol>
+	
+<div class="grid-container">
+<div class="header" *ngIf="isDataAvailable">
+<h1>{{template.templateName}}</h1>
+</div>
+<div *ngFor="let section of sections | slice:(sectionIndex-1):sectionIndex">
+  <div class="question-index">Section {{ sectionIndex }} / {{ sections.length }}</div>
+<!--  <p class="question">{{ quiz.question }}</p>
+  <div [class]="'option option-' + i" *ngFor="let option of quiz.options; let i = index" (click)="selected(elem)" #elem>{{ option }}</div>
+</div> -->
+<div class="progress">
+      <div class="progress-bar" role="progressbar" [style.width]="progressValue | percent">
+        <span class="sr-only">{{ "progressValue | percent" }} Complete</span>
+      </div>
+    </div>
+<div class="col-lg-12">
+                    <h3 class="page-header" >{{section.sectionTitle}}</h3>
+					<h4>{{section.sectionDesc}}</h4>
+</div>
+
+	
+<form *ngIf="isDataAvailable" [formGroup]="formGroup">
+
+    <dynamic-bootstrap-form [group]="formGroup"
+                            [model]="formModel"></dynamic-bootstrap-form>
+                               
+</form>
+
+<div class="navigation">
+ <button *ngIf="sectionIndex > 1" class="btn btn-primary pull-left btn-lg" (click)="previousSection(formModel,formGroup.value)">Previous Section</button>
+ <!--  <button *ngIf="sectionIndex <= (sections?.length - 1)" class="btn btn-success center-block btn-lg" (click)="saveSection(template)">Save Section</button> -->
+  <button *ngIf="!viewingStatus" class="btn btn-success center-block btn-lg" (click)="saveSection(template,formGroup.value,formModel)">Save Section</button>
+  <button *ngIf="sectionIndex < sections.length" class="btn btn-primary pull-right btn-lg RbtnMargin" (click)="nextSection(formModel,formGroup.value)">Next Section</button>
+  <button *ngIf="sectionIndex > (sections?.length - 1) && !viewingStatus" class="btn btn-primary pull-right btn-lg RbtnMargin" (click)="saveSection(template,formGroup.value,formModel, 'yes')">Finish Checklist</button>
+</div>
+
+<!--		<div class="margin-20">
+          <pre>form value: <br>{{formGroup.value | json}}</pre>
+        </div> 
+		
+<!-- 		<div class="margin-20">
+          <pre>form Model: <br>{{formModel | json}}</pre>
+        </div>  -->
+</div>
+
+
+
+

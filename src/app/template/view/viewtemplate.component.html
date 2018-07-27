@@ -1,0 +1,102 @@
+<!--<modal #popup_section>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Add Sections</h4>
+    </modal-header>
+    <modal-body>
+		 <table class="table table-striped" [mfData]="malConnections">
+                <thead>
+					<tr>
+						
+						<th style="width: 50%" class="text-left">
+							<mfDefaultSorter by="id">Downstream Application Acronym</mfDefaultSorter>
+						</th>
+						<th style="width: 50%" class="text-left">
+							<mfDefaultSorter by="email">Interface</mfDefaultSorter>
+						</th>
+					</tr>
+                </thead>
+                <tbody>
+					
+						<tr *ngFor="let malConnection_downstream of malConnections_downstream">
+							<td class="text-left">{{malConnection_downstream?.Downstream_app_acronym}}</td>
+							<td class="text-left">{{malConnection_downstream?.Interface}}</td>
+						</tr>
+	 
+				</tbody>
+			</table>
+    </modal-body>
+    <modal-footer>
+		<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="popup_downstream.dismiss()">OK</button>
+    </modal-footer>
+</modal> -->
+
+ 
+
+
+<div class="topic-title">
+    <svg class="bg-topic-title" xmlns="http://www.w3.org/2000/svg" width="380px" height="100px" viewBox="0 0 380 100">
+      <polygon points="0,0 0,70 200,70 380,0 "/>
+    </svg>
+    <div class="title-name">
+        <h1>Available Checklist Templates</h1>
+    </div>
+  </div>
+ 
+<ol class="breadcrumb">
+		<li><a routerLink="/" routerLinkActive="active">Home</a></li>
+		<li class="active">Templates</li>
+	</ol>
+
+<div class="grid-container">
+
+	<div class="form-group">
+
+			<table class="table table-striped" [mfData]="malApplications">						
+					<thead>
+					
+					
+					<tr>
+						
+						<th style="width: 20%" class="text-left">
+							<mfDefaultSorter by="id">Name</mfDefaultSorter>
+						</th>
+						<th style="width: 40%" class="text-left">
+							<mfDefaultSorter by="email">Description</mfDefaultSorter>
+						</th>
+						<th style="width: 30%" class="text-left">
+							<mfDefaultSorter by="email">Version</mfDefaultSorter>
+						</th>
+						<th style="width: 10%" class="text-left">
+							<mfDefaultSorter by="email"></mfDefaultSorter>
+						</th>
+						
+						
+					</tr>
+					
+
+					</thead>
+					<tbody>
+					<tr *ngFor="let template of templates; let i = index;">
+						
+						<td class="text-left">{{template.templateName}}</td>
+						<td class="text-left" >{{template.templateDesc}} </td>
+					<td class="text-left" >{{template.refTemplateName}} - Version{{template.version}} </td>
+						<td class="text-left">
+												<a routerLink="/template/{{template._id}}/edit"><span class="glyphicon glyphicon-edit" aria-hidden=true></span></a>
+												<a (click)="deleteTemplate(template._id,i)"><span class="glyphicon glyphicon-trash" aria-hidden=true></span></a>
+						</td>
+					<tr >
+						
+					</tbody>
+					<tfoot>
+					<tr>
+						<td colspan="5">
+							<mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+						</td>
+					</tr>
+					</tfoot>
+				</table>
+				</div>	
+				
+				
+				</div>

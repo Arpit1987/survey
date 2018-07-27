@@ -1,0 +1,236 @@
+<div class="topic-title">
+    <svg class="bg-topic-title" xmlns="http://www.w3.org/2000/svg" width="380px" height="100px" viewBox="0 0 380 100">
+      <polygon points="0,0 0,70 200,70 380,0 "/>
+    </svg>
+    <div class="title-name">
+        <h1 *ngIf="!editingStatus">Create Template</h1>
+		<h1 *ngIf="editingStatus">Edit Template</h1>
+		
+    </div>
+  </div>
+<ol class="breadcrumb">
+		<li><a routerLink="/" routerLinkActive="active">Home</a></li>
+		<li><a routerLink="/mydashboard" routerLinkActive="active">Dashboard</a></li>
+		<li class="active" *ngIf="!editingStatus">Create Template</li>
+		<li  class="active" *ngIf="editingStatus && !viewingStatus">Edit Template</li>
+		<li  class="active" *ngIf="!editingStatus && viewingStatus">View Template</li>
+	</ol>
+<div class="grid-container">
+
+		<form [formGroup]="template" novalidate (ngSubmit)="onSubmit(template.value)" *ngIf="isDataAvailable">
+	<div class="panel panel-primary">
+		<div class="panel-heading">Template Details</div>
+			<div class="panel-body">
+  
+  
+				<div class="row">
+					
+						<label for="templateName">Template Name</label>
+						<input type="text" class="form-control" formControlName="templateName" placeholder="Enter Template Name">
+						<small *ngIf="!template.controls.templateName.valid" class="text-danger">
+							{{txtTemplateNameValid}}
+					   </small>
+				</div>
+				
+			
+				<div class="row">
+						  
+							<label for="templateDesc">Template Description</label>
+							<textarea class="form-control" formControlName="templateDesc" placeholder="Enter Template Description"></textarea>
+							<small *ngIf="!template.controls.templateDesc.valid" class="text-danger">
+							{{txtTemplateDescValid}}
+					   </small>
+					  </div>
+					  
+							<div class="row">
+							   <label for="templateDesc">Template Owners</label>
+							   </div>
+							   <div class="row">
+								<div formArrayName="ownerIds">
+										<div [formGroupName]="i" *ngFor="let ownerId of template.controls.ownerIds.controls; let i=index">
+										 <span>Owner {{i + 1}}</span>
+												<div class="row">
+													<input type="text" class="form-control" formControlName="name" placeholder="Enter OwnerId">
+												 </div>
+												<span class="glyphicon glyphicon-remove pull-right" *ngIf="template.controls.ownerIds.controls.length > 1" (click)="removeOwnerId(i)"></span>
+							
+										</div>
+									
+									</div>
+									
+								
+             
+							</div>
+							<div class="margin-20">
+									<a (click)="addOwnerId()" style="cursor: default">
+									Add another owner +
+									</a>
+							</div>
+
+          </div>
+						
+	</div>
+				
+			
+								 
+					<!--Mandatory tags section-->
+				<div class="panel panel-primary">
+					<div class="panel-heading">Mandatory Tags</div>
+					<div class="panel-body">
+						<table class="table table-striped" [mfData]="malApplications">						
+							<thead>
+								<tr>
+									<th style="width: 50%" class="text-left">
+										<mfDefaultSorter by="id">Tags</mfDefaultSorter>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+									<tr formArrayName="mTags">
+										<div [formGroupName]="m" *ngFor="let option of getMTags(template); let m=index">
+											<td class="text-left">
+												<div class="row">
+													 <select class="form-control" id="Select1" formControlName="key">
+													 <option value="" selected disabled hidden>Select a Tag</option>
+														<option *ngFor="let k of keyValues;" [value]="k.key">{{k.key}}</option>
+													</select> 
+												 </div>
+											</td>
+											<td>
+												<span *ngIf="!viewingStatus" (click)="removeMTag(m)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>	
+											</td>	
+										</div>
+									
+									</tr>
+							</tbody>
+						</table>
+									
+							
+									<a (click)="addMTag()"><i *ngIf="!viewingStatus" class="fa fa-plus" aria-hidden="true"></i></a>
+								
+						</div>
+					</div>
+					  
+
+	<!-- End mandatory tags section -->		
+			<!---template Section -->
+			<div formArrayName="sections">
+				<div class="section-container" *ngFor="let section of getSections(template); let i = index">
+					<div class="ui raised segments" [formGroupName]="i">
+						<div class="panel panel-primary">
+						<div class="panel-heading ">Create Section 
+						<i class="fa fa-times pull-right" *ngIf="getSections(template).length > 1 && !viewingStatus" (click)="removeSection(i)"></i>
+						</div>
+						<div class="panel-body">
+						
+						<div class="row">
+							
+								<label for="templateName">Section Heading</label>
+								<input class="form-control" type="text" placeholder="Section Heading" formControlName="sectionTitle">
+						
+						</div>
+						<div class="row">
+							
+								<label for="templateName">Section Description</label>
+								<input class="form-control" type="text" placeholder="Section Description" formControlName="sectionDescription">
+								
+						</div>
+						
+						<!-- Question segment -->
+						<!---template Section -->
+						<hr>
+						<div class="row">
+							
+								<label for="templateName">Add Questions to Section</label>
+						</div>
+					<div class="question-container" formArrayName="questions">
+					<table class="table table-striped" [mfData]="malApplications">						
+						<thead>
+						
+						
+						<tr>
+							
+							<th style="width: 60%" class="text-left">
+								<mfDefaultSorter by="id">Question</mfDefaultSorter>
+							</th>
+							<th style="width: 10%" class="text-left">
+								<mfDefaultSorter by="email">Question Type</mfDefaultSorter>
+							</th>
+							<th style="width: 20%" class="text-left">
+								<mfDefaultSorter by="email">Answer Options</mfDefaultSorter>
+							</th>
+							<th style="width: 10%" class="text-left">
+								<mfDefaultSorter by="email">Add/Delete Question</mfDefaultSorter>
+							</th>
+							
+						</tr>
+						</thead>
+					<tbody>
+						
+							<tr [formGroupName]="j" *ngFor="let question of getQuestions(section); let j = index">
+							<td class="text-left">
+								<input type="text" class="form-control" placeholder="Enter Question" formControlName="questionTitle">
+							</td>
+							<td class="text-left">
+								<div class="row">
+									<select class="form-control" formControlName="questionType">  
+										<option>Multiple Choice</option>
+										<option>Free Text</option>
+										<option>Yes/No</option>
+								  </select>
+								</div>
+							</td>
+							<td class="text-left">		
+								<a (click)="add(i,j)"><i *ngIf="!viewingStatus"  class="fa fa-plus" aria-hidden="true"></i></a>
+								<a (click)="remove(i,j)"><i *ngIf="!viewingStatus" class="fa fa-minus-circle" aria-hidden="true"></i></a>
+								<!-- Option Addation -->
+								<div formArrayName="options">
+									<div [formGroupName]="k" *ngFor="let option of getOptions(question); let k=index">
+										<input type="radio" disabled="disabled">
+										<input type="text" placeholder="Option 1" formControlName="optionTitle">
+
+										<a (click)="remove(i,j)"><i *ngIf="!viewingStatus" class="fa fa-minus" aria-hidden="true"></i></a>
+										<span *ngIf="getOptions(question).length > 1" (click)="removeOption(i,j,k)"><i *ngIf="!viewingStatus" class="fa fa-minus" aria-hidden="true"></i></span>
+									</div>
+									<!-- End Option Addition -->
+									<!-- Option Addtion -->
+									<!-- End Option Addition -->
+							
+								</div><br>
+							</td>
+							<td>
+								<a (click)="addQuestion(i)"><i *ngIf="!viewingStatus" class="fa fa-plus" aria-hidden="true"></i></a>
+								<span *ngIf="getQuestions(section).length > 1 && !viewingStatus" (click)="removeQuestion(i)"><i class="fa fa-minus-circle" aria-hidden="true"></i></span>
+							</td>
+							</tr><br>
+						
+						<!-- End Question -->
+					</tbody>
+					</table>
+					<!-- <input type="hidden" formControlName="_id"> -->
+					</div>
+					</div><br><!--panel body-->
+
+						
+						
+					</div>
+					 <!--<button type="button" class="btn btn-primary" (click)="addSection()">Add Another Section</button> -->
+					 <button type="button" class="btn btn-primary" (click)="addEmptySection()"  *ngIf="!viewingStatus">Add Another Section</button>
+					 
+				
+				
+				</div>
+				</div>
+				</div>
+			<!-- End Section -->
+			<div class="row" align="Center">
+				<button type="submit" class="btn btn-primary  btn-lg" *ngIf="!editingStatus">Create Template</button>
+				<button type="submit" class="btn btn-primary  btn-lg" *ngIf="editingStatus && !viewingStatus">Edit Template
+				</button>
+			</div>
+		</form>
+		
+	<!--	<pre> {{template.value | json}} </pre> -->
+
+</div>

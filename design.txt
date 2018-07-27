@@ -1,0 +1,13 @@
+checklist template1
+	checklist1
+		section1 - currentSection
+			questions1-n
+		section2
+			questions1-n
+		section3
+			questions1-n
+	checklist2
+
+checklist template2
+	checklist3
+	checklist4

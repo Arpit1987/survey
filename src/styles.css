@@ -1,0 +1,62 @@
+/* You can add global styles to this file, and also import other style files */
+body
+{
+	background-color:#F0EDEE;
+	/*background: url("../app/assets/images/bg-logo.svg") 100% 100px no-repeat;*/
+}
+/*Page Title */
+.bg-topic-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  fill: #13AAAC;
+  z-index: 2;
+ }  
+.topic-title {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+	background-color: #0E7879;
+	width: 100%;
+	position: relative;
+	top: 0;
+    overflow: hidden;
+	z-index: 1;
+  }
+  .topic-title h1
+  {
+	  position: relative;
+	  padding-left: 250px;
+	  z-index: 3; 
+	  top:0;
+      color: #FFFFFF;
+  }
+  
+.grid-container {
+  width: 90%;
+  height: 100%;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #FFFFFF;
+  box-shadow: 5px 5px 5px #888888;
+  clear: both;
+  }
+div.row
+{
+padding: 5px 15px;
+}
+ol.breadcrumb
+{
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+	background-color: #FFFFFF;
+	position:relative;
+	margin-top: 20px;
+	font-size: 14px;
+}
+
+img {
+    height: 150px;
+    width: 100px;
+}

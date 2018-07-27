@@ -1,0 +1,224 @@
+<div class="topic-title">
+  <svg class="bg-topic-title" xmlns="http://www.w3.org/2000/svg" width="380px" height="100px" viewBox="0 0 380 100">
+    <polygon points="0,0 0,70 200,70 380,0 "/>
+  </svg>
+  <div class="title-name">
+      <h1>Create Survey</h1>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+  <li><a routerLink="/mydashboard" routerLinkActive="active">Dashboard</a></li>
+  <li class="active" *ngIf="!editingStatus">Create Survey</li>
+  <li  class="active" *ngIf="editingStatus">Edit Survey</li>
+</ol>
+
+<div class="grid-container">
+  <form *ngIf="isDataAvailable" [formGroup]="checklistForm" novalidate (ngSubmit)="onSubmit(checklistForm.value)">
+    
+<!---PANEL THAT TAKES BASIC Checklist details -->
+    <div class="panel panel-primary">
+  <div class="panel-heading">Survey Details</div>
+    <div class="panel-body">
+
+
+      <div class="row">
+         <div class="form-group">
+          <label for="templateName">Survey Name</label>
+          <input type="text" class="form-control" formControlName="templateName" placeholder="Enter Survey Name">
+          <small *ngIf="!checklistForm.controls.templateName.valid" class="text-danger">
+              {{txtChecklistNameValid}}
+           </small>
+        </div>
+         
+      </div>
+
+      <div class="row">
+           <div class="form-group">  
+            <label for="templateDesc">Survey Description</label>
+            <textarea class="form-control" formControlName="templateDesc" placeholder="Enter Survey Description"></textarea>
+            <small *ngIf="!checklistForm.controls.templateDesc.valid" class="text-danger">
+              {{txtChecklistDescValid}}
+            </small>
+          </div>
+          
+      </div>
+      
+      <div class="row">
+          <div class="form-group">
+           <label for="exampleSelect1">Select Template</label>
+        <!--		<select formControlName="templateID" [ngModel]="template" (ngModelChange)="onChangeObj($event)" class="form-control" id="exampleSelect1">
+              <option  *ngFor="let t of templates;" [value]="t" >{{t.templateName}}</option>
+            </select>-->
+            <select class="form-control" formControlName="templateID" (ngModelChange)="onChangeObj($event)"  name="sel3">
+              <option [ngValue]="t._id" *ngFor="let t of templates;" [selected]="selectedTemplate">{{t.templateName}}</option>
+            </select>
+          </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Notification Options</div>
+      <div class="panel-body">
+
+      <div class="row">
+           <div class="form-group">  
+              <label for="templateDesc">Access to forms by anyone who has a link?</label>
+            <div class="checkbox" >
+              <label><input type="checkbox">Yes/No</label>
+            </div>
+          </div>
+          
+      </div>
+      <div class="row">
+           <div class="form-group">  
+              <label for="templateDesc">Choose Email Template</label>
+              <select class="form-control" (change)="onSelectemail($event)">
+                <option disabled selected>--Select Template--</option>
+                <option [value]="emailtemplate._id" *ngFor="let emailtemplate of emailtemplates;let i = index;" [selected]="selectedTemplate">
+                  {{emailtemplate.emailTemplateName}}
+                </option>
+              </select>
+          </div>
+          
+      </div>
+      
+
+      </div>
+    </div>
+
+<!----END PANEL THAT TAKES BASIC Checklist details --->
+<!--Mandatory tags section-->
+<div class="panel panel-primary">
+  <div class="panel-heading">Mandatory Tags</div>
+    <div class="panel-body">
+        <table id="customers" class="table table-striped" [mfData]="malApplications">						
+          <thead>
+            <tr>
+                    
+              <th style="width: 50%" class="text-left">
+                <mfDefaultSorter by="id">Mandatory Tag</mfDefaultSorter>
+              </th>
+              <th style="width: 50%" class="text-left">
+                <mfDefaultSorter by="email">Select Values</mfDefaultSorter>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <div formArrayName="mTags">
+              <tr *ngFor="let tag of checklistForm.controls['mTags'].controls; let i = index">
+              
+              <div formGroupName="{{i}}">
+                <td>
+                  <div class="field four wide">
+                  <!--  <label class="form-control" for="description" formControlName="key"  value="{{listOptions[i].key}}" ngDefaultControl>{{listOptions[i].key}}</label> -->
+                    <input type="text" readonly class="form-control" formControlName="key" [ngModel]="listOptions[i].key"  />
+                  </div>
+                </td>
+                <td>
+                  <select multiple formControlName="values" class="form-control">
+                    <option value="">Select Item</option>
+                    <option *ngFor="let val of listOptions[i].values" [value]="val.value">{{val.value}}</option>
+                  </select>
+                </td>
+        <!--			<td>
+                <ul class="list-group" formArrayName="values">
+                  <div *ngFor="let value of tag.controls['values'].controls; let j = index">
+                    <div class="city-box" formGroupName="{{j}}">           
+                      <div class="field four wide">
+                        <label for="description" formControlName="value" ngDefaultControl>{{listOptions[i].values[j].value}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </ul>
+              </td>	-->
+              </div>
+              </tr>
+            </div>            
+          </tbody>
+      </table>
+      
+      <div class="row">
+        <div class="col-md-5">
+          <label for="templateDesc">Participant(s)</label>
+        </div>
+        <div class="col-md-3">
+          <label for="templateDesc">Mandatory Tags</label>
+        </div>
+        <div class="col-md-3">
+          <label for="templateDesc">Values</label>
+        </div>
+      </div>
+
+      <div class="margin-20">
+        <a (click)="addParticipant()" style="cursor: default">
+        Add another value +
+        </a>
+      </div>
+      <div  formArrayName="participants">
+      <div [formGroupName]="i" *ngFor="let pPant of checklistForm.controls.participants.controls; let i=index">
+              
+        <div class="row">
+            
+            <div class="col-md-5">
+                <span>Participant {{i + 1}}</span>
+              <input type="text" class="form-control" id="{{i}}" formControlName="name" placeholder="Enter Participant">
+            </div>
+            <a (click)="addMTag(i + 1)"><i  class="fa fa-plus" aria-hidden="true"></i></a>
+          <span class="glyphicon glyphicon-remove pull-right" *ngIf="checklistForm.controls.participants.controls.length > 1" (click)="removeParticipant(i)"></span>
+            <div class="col-md-5">
+            <div class="col-md-12" *ngFor="let PpantMtag of PpantTagValueList;let mIndex = index">
+                <span *ngIf="PpantMtag.participant == i+1">
+                  <div class="col-md-6">
+                      <select  (change)="onChangeTag($event.target.value,i,PpantMtag.mtagIndex)">
+                        <option [value]="i1" *ngFor="let mTagValue of PpantTagValueList[mIndex].listOptions;let i1 = index">
+                              {{mTagValue.key}}
+                          </option>
+                      </select>
+                  </div>
+                  <div class="col-md-6" >
+                      <select multiple (change)='onOptionsSelected($event.target.options,i,mIndex)'>
+                          <option value="">Select Item</option>        
+                          <option *ngFor="let val of PpantTagValueList[mIndex].listOptions[valueindexList[mIndex].index].values" >{{val.value}}</option>   
+                      </select>
+                  </div>
+                </span>
+          </div>
+        </div>
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </div>
+
+    
+
+  <div class="row" align="Center">
+      <button type="submit" class="btn btn-primary  btn-lg">Create Survey</button>
+   </div>
+   <div class="margin-20">
+        <div>myForm details:-</div>
+        <pre>Is myForm valid?: <br>{{checklistForm.valid | json}}</pre>
+        <pre>form value: <br>{{checklistForm.value | json}}</pre>
+    </div>
+
+  </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

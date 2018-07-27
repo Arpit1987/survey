@@ -1,0 +1,84 @@
+<div class="topic-title">
+  <svg class="bg-topic-title" xmlns="http://www.w3.org/2000/svg" width="380px" height="100px" viewBox="0 0 380 100">
+    <polygon points="0,0 0,70 200,70 380,0 "/>
+  </svg>
+  <div class="title-name">
+      <h1 *ngIf="!editingStatus">Create Email Template</h1>
+  <h1 *ngIf="editingStatus">Edit Email Template</h1>
+  
+  </div>
+</div>
+<ol class="breadcrumb">
+  <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+  <li><a routerLink="/mydashboard" routerLinkActive="active">Dashboard</a></li>
+  <li class="active" *ngIf="!editingStatus">Create Template</li>
+  <li  class="active" *ngIf="editingStatus && !viewingStatus">Edit Template</li>
+  <li  class="active" *ngIf="!editingStatus && viewingStatus">View Template</li>
+</ol>
+<div class="grid-container">
+
+  <form [formGroup]="emailTemplateForm" novalidate (ngSubmit)="onSubmit(emailTemplateForm.value)" *ngIf="isDataAvailable">
+<div class="panel panel-primary">
+  <div class="panel-heading">Template Details</div>
+    <div class="panel-body">
+
+
+      <div class="row">
+        
+          <label for="emailTemplateName">Template Name</label>
+          <input type="text" class="form-control" formControlName="emailTemplateName" placeholder="Enter Template Name">
+          <small *ngIf="!emailTemplateForm.controls.emailTemplateName.valid" class="text-danger">
+            {{txtTemplateNameValid}}
+           </small> 
+      </div>
+      
+    
+      <div class="row">
+            <label for="emailTemplateDesc">Template Description</label>
+            <textarea class="form-control" formControlName="emailTemplateDesc" placeholder="Enter Template Description"></textarea>
+            <small *ngIf="!emailTemplateForm.controls.emailTemplateDesc.valid" class="text-danger">
+            {{txtTemplateDescValid}}
+           </small>
+      </div>
+
+      <div class="row">
+            <div class="form-group">
+       <label for="contentType">Content Type</label>
+        <select class="form-control" formControlName="contentType" name="contentType">
+          <option selected="selected" value="Select One">Select One</option>
+          <option value="Text">Plain Text</option>
+          <option value="Html">HTML</option>
+        </select>
+        </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+              <label for="contentText">Subject Text</label>
+                    <textarea class="form-control" formControlName="subjectText" id="contentText" placeholder="Enter Email Subject"></textarea>
+           </div>
+          </div>     
+      <div class="row">
+          <div class="form-group">
+            <label for="contentText">Content Text</label><br>
+            <label>PlaceHolder - </label>            
+            <select (change)="onChangeKey($event.target.value)">
+                <option selected disabled>--Select--</option>
+                <option value="participant">Participant</option>
+                <option [value]="keyValue.key" *ngFor="let keyValue of keyValues;let i=index">{{keyValue.key}}</option>
+            </select> <button class="btn btn-primary btn-sm"  (click)="replacePlaceHolder()">Insert</button>
+            <br><br>
+                  <textarea class="form-control" formControlName="contentText" id="contentText" placeholder="Enter Email Content" [(ngModel)]="contentText" ></textarea>
+         </div>
+        </div>
+      </div>
+</div>
+    <div class="row" align="Center">
+      <button type="submit" class="btn btn-primary  btn-lg" *ngIf="!editingStatus">Create Template</button>
+      <button type="submit" class="btn btn-primary  btn-lg" *ngIf="editingStatus && !viewingStatus">Edit Template
+      </button>
+    </div>
+  </form>
+  
+  <!--<pre> {{template.value | json}} </pre> -->
+
+</div>

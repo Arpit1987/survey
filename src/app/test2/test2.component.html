@@ -1,0 +1,128 @@
+<div class="container">
+	<ol class="breadcrumb">
+		<li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+		<li><a routerLink="/template/view" routerLinkActive="active">Templates</a></li>
+		<!--<li class="active" *ngIf="!template.id">Create Template</li>
+		<li  class="active" *ngIf="template.id">Edit Template</li> -->
+	</ol>
+    <form [formGroup]="checklistForm" novalidate (ngSubmit)="onSubmit(checklistForm.value)">
+<!----PANEL THAT TAKES BASIC Checklist details --->
+      <div class="panel panel-primary">
+		<div class="panel-heading">Checklist Details</div>
+			<div class="panel-body">
+  
+  
+				<div class="row">
+					 <div class="form-group">
+						<label for="checklistName">Checklist Name</label>
+						<input type="text" class="form-control" formControlName="templateName" placeholder="Enter Checklist Name">
+					</div>
+				</div>
+
+				<div class="row">
+						 <div class="form-group">  
+							<label for="checklistDesc">Checklist Description</label>
+							<textarea class="form-control" formControlName="templateDesc" placeholder="Enter Checklist Description"></textarea>
+						</div>
+				</div>
+				<div class="row">
+					  <div class="form-group">
+						 <label for="exampleSelect1">Select Template</label>
+					<!--		<select formControlName="templateID" [ngModel]="template" (ngModelChange)="onChangeObj($event)" class="form-control" id="exampleSelect1">
+								<option  *ngFor="let t of templates;" [value]="t" >{{t.templateName}}</option>
+							</select>-->
+							<select formControlName="templateID" (ngModelChange)="onChangeObj($event)" name="sel3">
+								<option [ngValue]="t" *ngFor="let t of templates;">{{t.templateName}}</option>
+							</select>
+							{{t | json}}
+						</div>
+				</div>
+				<div class="row">
+					<div class="form-group">
+						<label for="exampleTextarea">Template Owner(s)(Not implemented)</label>
+						<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Template Owner">
+			
+					</div>
+				</div>
+			</div>
+		</div>
+<!----END PANEL THAT TAKES BASIC Checklist details --->
+<!--Mandatory tags section-->
+	<div class="panel panel-primary">
+		<div class="panel-heading">Mandatory Tags</div>
+			<div class="panel-body">
+					<table id="customers" class="table table-striped" [mfData]="malApplications">						
+						<thead>
+							<tr>
+											
+								<th style="width: 50%" class="text-left">
+									<mfDefaultSorter by="id">Mandatory Tag</mfDefaultSorter>
+								</th>
+								<th style="width: 50%" class="text-left">
+									<mfDefaultSorter by="email">Select Values</mfDefaultSorter>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<div formArrayName="tags">
+							  <tr *ngFor="let tag of checklistForm.controls['tags'].controls; let i = index">
+							  
+								<div formGroupName="{{i}}">
+									<td>
+										<div class="field four wide">
+										  <label for="description" formControlName="key" ngDefaultControl>{{listOptions[i].key}}</label>
+										</div>
+									</td>
+									<td>
+										<select multiple formControlName="tagvalues">
+											<option value="">Select Item</option>
+											<option *ngFor="let val of listOptions[i].values" [value]="val.value">{{val.value}}</option>
+										</select>
+									</td>
+					<!--			<td>
+									<ul class="list-group" formArrayName="values">
+										<div *ngFor="let value of tag.controls['values'].controls; let j = index">
+											<div class="city-box" formGroupName="{{j}}">           
+												<div class="field four wide">
+												  <label for="description" formControlName="value" ngDefaultControl>{{listOptions[i].values[j].value}}</label>
+												</div>
+											</div>
+										</div>
+									</ul>
+								</td>	-->
+								</div>
+							  </tr>
+							</div>
+						</tbody>
+				</table>
+			</div>
+		</div>
+
+      
+      <div class="row">
+        <div class="col-xs-12">
+		    <button class="ui secondary basic button" (click)="add5cities()">add 5 cities</button>
+			<button class="ui secondary basic button" (click)="removeAllCitiesByControl()">Remove all cities by control</button>
+			
+			<button class="ui secondary basic button" (click)="add5places()">add 5 places</button>
+			<button class="ui secondary basic button" (click)="removePlace(0)">remove places</button>
+			<button class="ui secondary basic button" (click)="removeAllPlaces()">Remove all places (not working)</button>
+			<button class="ui secondary basic button" (click)="removeAllPlacesbycontrol()">Remove all places by control</button>
+			
+			
+          <button class="ui secondary basic button" (click)="onCancel()">Cancel</button>
+          <button type="submit" *ngIf="!isEditing" class="ui primary basic button" [disabled]="!checklistForm.valid" >Save</button>
+          <button type="submit" *ngIf="isEditing" class="ui primary basic button" [disabled]="!checklistForm.valid" >Update</button>
+        </div>
+      </div>
+    </form>
+		<div class="column result">
+		<h1>Form Validity and Values</h1>
+		<h3>Form Validity: {{checklistForm.valid}}</h3>
+		<h3>KeyValuepair: {{listOptions.value | json}}</h3>
+		<h3>Template: {{t | json}}</h3>
+		<h3>Form Value: {{checklistForm.value | json}}</h3>
+
+	</div>
+  </div>
